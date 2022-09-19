@@ -191,25 +191,69 @@ void BodePlot::paint (juce::Graphics& g)
 
 void BodePlot::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
-
     plotFrame = getLocalBounds().reduced (3, 3);
     
     auto width = juce::roundToInt (plotFrame.getWidth()) / (bandEditors.size());
     auto bandSpace = plotFrame.removeFromBottom (250.0);
     width = width >= 200.0 ? 200.0 : width;
 
-//    auto width = juce::roundToInt (bandSpace.getWidth()) / (bandEditors.size());
-    //auto bandSpace = plotFrame.removeFromBottom (getHeight() / 2);
-
     for (auto* bandEditor : bandEditors)
         bandEditor->setBounds (bandSpace.removeFromLeft (width));
     
     plotFrame.reduce (3, 3);
-
 }
 
+void BodePlot::mouseMove (const juce::MouseEvent& e)
+{
+    if (plotFrame.contains (e.x, e.y))
+    {
+        for (int i=0; i < bandEditors.size(); ++i)
+        {
+            auto* band = bandEditors.getUnchecked(i);
+            
+            auto pos = plotFrame.getX() + getPositionForFrequency (float (band->getFrequncy())) * plotFrame.getWidth();
+
+            if (std::abs (pos - e.position.getX()) < clickRadius)
+            {
+                if (std::abs (getPositionForGain (float (band->getGain()), float (plotFrame.getY()), float (plotFrame.getBottom()))
+                              - e.position.getY()) < clickRadius)
+                {
+                    draggingGain = true;
+                    setMouseCursor (juce::MouseCursor (juce::MouseCursor::UpDownLeftRightResizeCursor));
+                }
+                else
+                {
+                    draggingGain = false;
+                    setMouseCursor (juce::MouseCursor (juce::MouseCursor::LeftRightResizeCursor));
+                }
+
+                if (i != draggingBand)
+                {
+                    draggingBand = i;
+                    repaint (plotFrame);
+                }
+                return;
+            }
+            
+        }
+    }
+    draggingBand = -1;
+    draggingGain = false;
+    setMouseCursor (juce::MouseCursor (juce::MouseCursor::NormalCursor));
+}
+
+void BodePlot::mouseDrag (const juce::MouseEvent& e)
+{
+    if (juce::isPositiveAndBelow (draggingBand, bandEditors.size()))
+    {
+        auto pos = (e.position.getX() - plotFrame.getX()) / plotFrame.getWidth();
+        bandEditors [draggingBand]->setFrequency (getFrequencyForPosition (pos));
+        if (draggingGain)   {
+            float gain = getGainForPosition (e.position.getY(), float (plotFrame.getY()), float (plotFrame.getBottom()));
+            bandEditors [draggingBand]->setGain(gain);
+        }
+    }
+}
 
 float BodePlot::getFrequencyForPosition (float pos)
 {
@@ -228,5 +272,5 @@ float BodePlot::getPositionForGain (float gain, float top, float bottom)
 
 float BodePlot::getGainForPosition (float pos, float top, float bottom)
 {
-    return juce::Decibels::decibelsToGain (juce::jmap (pos, bottom, top, -maxDB, maxDB), -maxDB);
+    return juce::jmap (pos, bottom, top, -maxDB, maxDB);
 }

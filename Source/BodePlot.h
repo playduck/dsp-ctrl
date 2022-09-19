@@ -16,6 +16,7 @@
 
 const float maxDB  = 24.0f;
 const int numBands = 6;
+const int clickRadius = 10;
 
 //==============================================================================
 /*
@@ -28,6 +29,9 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    void mouseMove (const juce::MouseEvent& e) override;
+    void mouseDrag (const juce::MouseEvent& e) override;
     
     class BandEditor : public juce::Component,
                            public juce::Button::Listener
@@ -84,6 +88,9 @@ public:
         };
     
 private:
+    int draggingBand = -1;
+    bool draggingGain = false;
+    
     juce::Rectangle<int>          plotFrame;
     
     juce::OwnedArray<BandEditor>  bandEditors;
