@@ -141,6 +141,10 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_Android.cpp"/>
+    <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_iOS.cpp"/>
+    <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_OSX.cpp"/>
+    <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_Windows.cpp"/>
     <ClCompile Include="..\..\Source\bandEditor.cpp"/>
     <ClCompile Include="..\..\Source\BodePlot.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
@@ -1402,6 +1406,7 @@
     <ClCompile Include="C:\JUCE\modules\juce_gui_basics\juce_gui_basics.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_core.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_data_structures.cpp"/>
@@ -1412,6 +1417,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Components\juce_serialport\juce_serialport.h"/>
     <ClInclude Include="..\..\Source\BodePlot.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="C:\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
@@ -1892,9 +1898,12 @@
     <ClInclude Include="C:\JUCE\modules\juce_gui_basics\windows\juce_TooltipWindow.h"/>
     <ClInclude Include="C:\JUCE\modules\juce_gui_basics\windows\juce_TopLevelWindow.h"/>
     <ClInclude Include="..\..\..\..\code\JUCE\modules\juce_gui_basics\juce_gui_basics.h"/>
+    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\Components\juce_serialport\com\artiphon\juce_serial\UsbSerialHelper.java"/>
+    <None Include="..\..\Source\Components\juce_serialport\README.md"/>
     <None Include="C:\JUCE\modules\juce_core\native\java\README.txt"/>
     <None Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>
     <None Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt"/>

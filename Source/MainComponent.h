@@ -4,6 +4,8 @@
 
 #include "BodePlot.h"
 
+#include "Components/juce_serialport/juce_serialport.h"
+
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all

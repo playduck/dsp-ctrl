@@ -2,6 +2,21 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="dsp-ctrl\Source\Components\juce_serialport\com\artiphon\juce_serial">
+      <UniqueIdentifier>{2EABDD24-4977-69E3-E91F-B4277BB0F373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dsp-ctrl\Source\Components\juce_serialport\com\artiphon">
+      <UniqueIdentifier>{B212DF1A-BE33-E534-21DE-65B73E0222F5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dsp-ctrl\Source\Components\juce_serialport\com">
+      <UniqueIdentifier>{02263B14-F204-F04E-7A85-F1CA93843E81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dsp-ctrl\Source\Components\juce_serialport">
+      <UniqueIdentifier>{77DC6A6A-AD71-FF65-A033-A6AA05AF6D30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dsp-ctrl\Source\Components">
+      <UniqueIdentifier>{3FB9F8CC-B65D-2965-127B-29D987304FCC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="dsp-ctrl\Source">
       <UniqueIdentifier>{14F03D7D-685E-8EBA-06E0-1E6774CAF94D}</UniqueIdentifier>
     </Filter>
@@ -244,6 +259,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_Android.cpp">
+      <Filter>dsp-ctrl\Source\Components\juce_serialport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_iOS.cpp">
+      <Filter>dsp-ctrl\Source\Components\juce_serialport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_OSX.cpp">
+      <Filter>dsp-ctrl\Source\Components\juce_serialport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_Windows.cpp">
+      <Filter>dsp-ctrl\Source\Components\juce_serialport</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\bandEditor.cpp">
       <Filter>dsp-ctrl\Source</Filter>
     </ClCompile>
@@ -1591,6 +1618,9 @@
     <ClCompile Include="C:\JUCE\modules\juce_gui_basics\juce_gui_basics.mm">
       <Filter>JUCE Modules\juce_gui_basics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
+      <Filter>JUCE Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
@@ -1611,6 +1641,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Components\juce_serialport\juce_serialport.h">
+      <Filter>dsp-ctrl\Source\Components\juce_serialport</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\BodePlot.h">
       <Filter>dsp-ctrl\Source</Filter>
     </ClInclude>
@@ -3051,11 +3084,20 @@
     <ClInclude Include="..\..\..\..\code\JUCE\modules\juce_gui_basics\juce_gui_basics.h">
       <Filter>JUCE Modules\juce_gui_basics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h">
+      <Filter>JUCE Library Code</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>JUCE Library Code</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\Components\juce_serialport\com\artiphon\juce_serial\UsbSerialHelper.java">
+      <Filter>dsp-ctrl\Source\Components\juce_serialport\com\artiphon\juce_serial</Filter>
+    </None>
+    <None Include="..\..\Source\Components\juce_serialport\README.md">
+      <Filter>dsp-ctrl\Source\Components\juce_serialport</Filter>
+    </None>
     <None Include="C:\JUCE\modules\juce_core\native\java\README.txt">
       <Filter>JUCE Modules\juce_core\native\java</Filter>
     </None>

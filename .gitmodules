@@ -1,0 +1,3 @@
+[submodule "Source/Components/juce_serialport"]
+	path = Source/Components/juce_serialport
+	url = https://github.com/cpr2323/juce_serialport.git

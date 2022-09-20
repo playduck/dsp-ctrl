@@ -5,6 +5,32 @@
               splashScreenColour="Dark">
   <MAINGROUP id="Y0KQpr" name="dsp-ctrl">
     <GROUP id="{EFCD0813-FAEC-1F15-133D-C63E7BC413C4}" name="Source">
+      <GROUP id="{59AD2FE8-233F-5D31-0658-4C0FCE4D28D7}" name="Components">
+        <GROUP id="{84C8D0B0-7B80-45F1-6F60-98F0C1C37321}" name="juce_serialport">
+          <GROUP id="{185E8A3A-3CF1-E3D8-A2F8-E3B1589E6C7C}" name="com">
+            <GROUP id="{0EDAADE7-0E77-0C60-16BE-F5D4428BA725}" name="artiphon">
+              <GROUP id="{30713745-ED31-8844-ED2C-D08520780CAC}" name="juce_serial">
+                <FILE id="BhtbuN" name="UsbSerialHelper.java" compile="0" resource="1"
+                      file="Source/Components/juce_serialport/com/artiphon/juce_serial/UsbSerialHelper.java"/>
+              </GROUP>
+            </GROUP>
+          </GROUP>
+          <GROUP id="{361C85F1-E326-1982-0DA1-20DB388FBCC7}" name="submodules">
+            <GROUP id="{4C9CECB1-AE70-9A77-6E53-BA839BCEA35E}" name="usb-serial-for-android"/>
+          </GROUP>
+          <FILE id="FMx762" name="juce_serialport.h" compile="0" resource="0"
+                file="Source/Components/juce_serialport/juce_serialport.h"/>
+          <FILE id="mJWpVw" name="juce_serialport_Android.cpp" compile="1" resource="0"
+                file="Source/Components/juce_serialport/juce_serialport_Android.cpp"/>
+          <FILE id="i8YSkF" name="juce_serialport_iOS.cpp" compile="1" resource="0"
+                file="Source/Components/juce_serialport/juce_serialport_iOS.cpp"/>
+          <FILE id="x6GiT3" name="juce_serialport_OSX.cpp" compile="1" resource="0"
+                file="Source/Components/juce_serialport/juce_serialport_OSX.cpp"/>
+          <FILE id="rbR1XI" name="juce_serialport_Windows.cpp" compile="1" resource="0"
+                file="Source/Components/juce_serialport/juce_serialport_Windows.cpp"/>
+          <FILE id="UZWk1R" name="README.md" compile="0" resource="1" file="Source/Components/juce_serialport/README.md"/>
+        </GROUP>
+      </GROUP>
       <FILE id="CjCkYV" name="bandEditor.cpp" compile="1" resource="0" file="Source/bandEditor.cpp"/>
       <FILE id="GmfAZn" name="BodePlot.cpp" compile="1" resource="0" file="Source/BodePlot.cpp"/>
       <FILE id="SWUD2T" name="BodePlot.h" compile="0" resource="0" file="Source/BodePlot.h"/>
