@@ -9,13 +9,13 @@
 namespace BinaryData
 {
     extern const char*   UsbSerialHelper_java;
-    const int            UsbSerialHelper_javaSize = 8562;
+    const int            UsbSerialHelper_javaSize = 8820;
 
     extern const char*   README_md;
-    const int            README_mdSize = 343;
+    const int            README_mdSize = 351;
 
     extern const char*   README_md2;
-    const int            README_md2Size = 650;
+    const int            README_md2Size = 790;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
     const int namedResourceListSize = 3;

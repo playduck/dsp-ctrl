@@ -12,6 +12,10 @@
 
 #include <JuceHeader.h>
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 #define MAG_LEN (500)
 
 const float maxDB  = 24.0f;

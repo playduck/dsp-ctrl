@@ -5,6 +5,10 @@
               splashScreenColour="Dark">
   <MAINGROUP id="Y0KQpr" name="dsp-ctrl">
     <GROUP id="{EFCD0813-FAEC-1F15-133D-C63E7BC413C4}" name="Source">
+      <FILE id="RXfWLM" name="FrequencyEditor.h" compile="0" resource="0"
+            file="Source/FrequencyEditor.h"/>
+      <FILE id="y1jZwy" name="FrequencyEditor.cpp" compile="1" resource="0"
+            file="Source/FrequencyEditor.cpp"/>
       <GROUP id="{59AD2FE8-233F-5D31-0658-4C0FCE4D28D7}" name="Components">
         <GROUP id="{84C8D0B0-7B80-45F1-6F60-98F0C1C37321}" name="juce_serialport">
           <GROUP id="{185E8A3A-3CF1-E3D8-A2F8-E3B1589E6C7C}" name="com">
@@ -32,8 +36,6 @@
         </GROUP>
       </GROUP>
       <FILE id="CjCkYV" name="bandEditor.cpp" compile="1" resource="0" file="Source/bandEditor.cpp"/>
-      <FILE id="GmfAZn" name="BodePlot.cpp" compile="1" resource="0" file="Source/BodePlot.cpp"/>
-      <FILE id="SWUD2T" name="BodePlot.h" compile="0" resource="0" file="Source/BodePlot.h"/>
       <FILE id="RWwEGZ" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="OTGzee" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="SEEHOT" name="MainComponent.cpp" compile="1" resource="0"
@@ -57,20 +59,6 @@
         <MODULEPATH id="juce_audio_basics" path="../../code/JUCE/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
-    <VS2022 targetFolder="Builds/VisualStudio2022">
-      <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug"/>
-        <CONFIGURATION isDebug="0" name="Release"/>
-      </CONFIGURATIONS>
-      <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="../../juce"/>
-        <MODULEPATH id="juce_data_structures" path="../../juce"/>
-        <MODULEPATH id="juce_events" path="../../juce"/>
-        <MODULEPATH id="juce_graphics" path="../../juce"/>
-        <MODULEPATH id="juce_gui_basics" path="../../juce"/>
-        <MODULEPATH id="juce_audio_basics" path="../../code/JUCE/modules"/>
-      </MODULEPATHS>
-    </VS2022>
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug"/>
@@ -85,6 +73,20 @@
         <MODULEPATH id="juce_audio_basics" path="../../code/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
+    <VS2017 targetFolder="Builds/VisualStudio2017">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../juce"/>
+        <MODULEPATH id="juce_core" path="../../juce"/>
+        <MODULEPATH id="juce_data_structures" path="../../juce"/>
+        <MODULEPATH id="juce_events" path="../../juce"/>
+        <MODULEPATH id="juce_graphics" path="../../juce"/>
+        <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+      </MODULEPATHS>
+    </VS2017>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

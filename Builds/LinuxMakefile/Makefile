@@ -72,12 +72,12 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS_APP := \
+  $(JUCE_OBJDIR)/FrequencyEditor_7fcae5ca.o \
   $(JUCE_OBJDIR)/juce_serialport_Android_eaeeea9f.o \
   $(JUCE_OBJDIR)/juce_serialport_iOS_681d66dd.o \
   $(JUCE_OBJDIR)/juce_serialport_OSX_fd53a44.o \
   $(JUCE_OBJDIR)/juce_serialport_Windows_263a2cb3.o \
   $(JUCE_OBJDIR)/bandEditor_5a8cd06b.o \
-  $(JUCE_OBJDIR)/BodePlot_80d19e98.o \
   $(JUCE_OBJDIR)/Main_90ebc5c2.o \
   $(JUCE_OBJDIR)/MainComponent_a6ffb4a5.o \
   $(JUCE_OBJDIR)/BinaryData_ce4232d4.o \
@@ -100,6 +100,11 @@ $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) : $(OBJECTS_APP) $(RESOURCES)
 	-$(V_AT)mkdir -p $(JUCE_LIBDIR)
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
 	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) $(OBJECTS_APP) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_APP) $(RESOURCES) $(TARGET_ARCH)
+
+$(JUCE_OBJDIR)/FrequencyEditor_7fcae5ca.o: ../../Source/FrequencyEditor.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling FrequencyEditor.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/juce_serialport_Android_eaeeea9f.o: ../../Source/Components/juce_serialport/juce_serialport_Android.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
@@ -124,11 +129,6 @@ $(JUCE_OBJDIR)/juce_serialport_Windows_263a2cb3.o: ../../Source/Components/juce_
 $(JUCE_OBJDIR)/bandEditor_5a8cd06b.o: ../../Source/bandEditor.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling bandEditor.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/BodePlot_80d19e98.o: ../../Source/BodePlot.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling BodePlot.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/Main_90ebc5c2.o: ../../Source/Main.cpp
