@@ -4,7 +4,7 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
-    getLookAndFeel().setColour (juce::ResizableWindow::backgroundColourId, juce::Colour(0x0FU, 0x0FU, 0x14U));
+    getLookAndFeel().setColour (juce::ResizableWindow::backgroundColourId, juce::Colour(0x18U, 0x18U, 0x18U));
     getLookAndFeel().setColour (juce::Slider::trackColourId, juce::Colour(0x36U, 0x36U, 0x3FU));
     getLookAndFeel().setColour (juce::PopupMenu::backgroundColourId, juce::Colour(0x36U, 0x36U, 0x3FU));
     getLookAndFeel().setColour (juce::ComboBox::backgroundColourId, juce::Colours::transparentBlack);

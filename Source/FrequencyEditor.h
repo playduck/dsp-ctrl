@@ -113,6 +113,8 @@ private:
     
     float magnitudes_r[MAG_LEN];
     juce::Path frequencyResponse_r;
+    
+    void updateFrequencyResponse();
 
     float getFrequencyForPosition (float pos);
     float getPositionForFrequency (float freq);

@@ -51,6 +51,7 @@ FrequencyEditor::FrequencyEditor()
        );
  
         bandEditor->event = [&]() {
+            updateFrequencyResponse();
             repaint();
         };
         
@@ -64,16 +65,41 @@ FrequencyEditor::~FrequencyEditor()
 {
 }
 
+void FrequencyEditor::updateFrequencyResponse() {
+    for(size_t i = 0; i < MAG_LEN; ++i) {
+        magnitudes_l[i] = 0.0;
+        magnitudes_r[i] = 0.0;
+    }
+
+    for (size_t i=0; i < numBands; ++i) {
+        auto* bandEditor = bandEditors.getUnchecked (int (i));
+
+        for(size_t j = 0; j < MAG_LEN; ++j) {
+            if(bandEditor->getChannel())    {
+                magnitudes_r[j] += bandEditor->magnitudes[j];
+            }   else    {
+                magnitudes_l[j] += bandEditor->magnitudes[j];
+            }
+        }
+    }
+    
+    frequencyResponse_l.clear();
+    frequencyResponse_r.clear();
+    for(size_t i = 0; i < MAG_LEN; ++i) {
+        frequencyResponse_l.lineTo((float)i / MAG_LEN, magnitudes_l[i]);
+        frequencyResponse_r.lineTo((float)i / MAG_LEN, magnitudes_r[i]);
+    }
+}
+
 void FrequencyEditor::paint (juce::Graphics& g)
 {
-//    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (juce::Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
     g.setFont (12.0f);
     g.setColour (juce::Colours::silver);
     g.drawRoundedRectangle (plotFrame.toFloat(), 5, 2); // background
+    
+    g.setColour(juce::Colour(0x29U, 0x2AU, 0x2FU));
+    g.fillRoundedRectangle(plotFrame.toFloat(), 5);
+    
 
     // calculate major vertical positions
     // dw: decade width
@@ -85,10 +111,6 @@ void FrequencyEditor::paint (juce::Graphics& g)
     xL[2] = xL[1] + dw;                // 10 kHz
     
     float x20k = xL[2] + (std::log10(2) * dw); // 20 kHz
-    
-    g.setColour(juce::Colours::red);
-    g.setOpacity(0.05);
-    g.fillRoundedRectangle(plotFrame.getX(), plotFrame.getY(), plotFrame.getWidth(), plotFrame.getHeight() / 2, 5);
     
     // draw major gridlines
     float majorGridLineAlpha = 0.5f;
@@ -126,13 +148,6 @@ void FrequencyEditor::paint (juce::Graphics& g)
     g.drawHorizontalLine (juce::roundToInt (zeroDbY), float (plotFrame.getX()), float (plotFrame.getRight()));
 
     g.reduceClipRegion (plotFrame);
-    
-    frequencyResponse_l.clear();
-    frequencyResponse_r.clear();
-    for(size_t i = 0; i < MAG_LEN; ++i) {
-        magnitudes_l[i] = 0.0;
-        magnitudes_r[i] = 0.0;
-    }
 
     // draw band frequencys
     auto gain_l_offset = getPositionForGain((float) gain_l.getValue(),
@@ -154,18 +169,6 @@ void FrequencyEditor::paint (juce::Graphics& g)
         }
         g.strokePath (bandEditor->frequencyResponse, juce::PathStrokeType (2.0));
 
-        for(size_t j = 0; j < MAG_LEN; ++j) {
-            if(bandEditor->getChannel())    {
-                magnitudes_r[j] += bandEditor->magnitudes[j];
-            }   else    {
-                magnitudes_l[j] += bandEditor->magnitudes[j];
-            }
-        }
-    }
-    
-    for(size_t i = 0; i < MAG_LEN; ++i) {
-        frequencyResponse_l.lineTo((float)i / MAG_LEN, magnitudes_l[i]);
-        frequencyResponse_r.lineTo((float)i / MAG_LEN, magnitudes_r[i]);
     }
     
     frequencyResponse_l.applyTransform (juce::AffineTransform::scale (3*dw, 1));
@@ -238,6 +241,7 @@ void FrequencyEditor::paint (juce::Graphics& g)
 void FrequencyEditor::resized()
 {
     plotFrame = getLocalBounds().reduced (3, 3);
+    updateFrequencyResponse();
     
     auto bandSpace = plotFrame.removeFromBottom (250.0);
     
