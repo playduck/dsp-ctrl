@@ -57,9 +57,15 @@ FrequencyEditor::BandEditor::BandEditor (size_t i, float startF, juce::Colour c)
 
     activate.setClickingTogglesState (true);
     activate.setColour (juce::TextButton::buttonOnColourId, juce::Colours::green);
-
     addAndMakeVisible (activate);
     activate.setTooltip (TRANS ("Activate or deactivate this filter"));
+    
+    channel.setClickingTogglesState (true);
+    channel.addListener (this);
+    channel.setColour (juce::TextButton::buttonColourId, juce::Colours::blue);
+    channel.setColour (juce::TextButton::buttonOnColourId, juce::Colours::red);
+    addAndMakeVisible (channel);
+    channel.setTooltip (TRANS ("Use band on left or right channel"));
     
     typeLabel.attachToComponent(&filterType, true);
     freqLabel.attachToComponent(&frequency, true);
@@ -84,8 +90,9 @@ void FrequencyEditor::BandEditor::resized ()
     // type
     
     auto buttons = bounds.removeFromTop (20).withHeight (20);
+    activate.setBounds (buttons.removeFromLeft (20));
     solo.setBounds (buttons.removeFromLeft (20));
-    activate.setBounds (buttons.removeFromRight (20));
+    channel.setBounds (buttons.removeFromLeft (20));
 
 //    auto freqBounds = bounds.removeFromBottom (bounds.getHeight() * 1 / 2);
     auto right = bounds.removeFromRight(bounds.getWidth() / 1.5);
@@ -153,8 +160,12 @@ void FrequencyEditor::BandEditor::setType (int newType)
 
 void FrequencyEditor::BandEditor::buttonClicked (juce::Button* b)
 {
-    if (b == &solo) {
-//        processor.setBandSolo (solo.getToggleState() ? int (index) : -1);
+    if (b == &channel) {
+        if(channel.getToggleState())    {
+            channel.setButtonText("R");
+        }   else    {
+            channel.setButtonText("L");
+        }
     }
 }
 
@@ -166,6 +177,10 @@ float FrequencyEditor::BandEditor::getFrequncy()
 float FrequencyEditor::BandEditor::getGain()
 {
     return (float)gain.getValueObject().getValue();
+}
+
+bool FrequencyEditor::BandEditor::getChannel()  {
+    return channel.getToggleState();
 }
 
 void FrequencyEditor::BandEditor::calc()   {
@@ -224,6 +239,8 @@ void FrequencyEditor::BandEditor::calc()   {
         double m = \
         10.0 * log10(pow(((b0 + b1 + b2)/2.0), 2) - ((2.0*pow(sin(omega/2.0),2)) * (4.0 * b0 * b2 * (1.0 - (2.0*pow(sin(omega/2.0),2))) + b1 * (b0 + b2)))) -\
         10.0 * log10(pow(((a0 + a1 + a2)/2.0), 2) - ((2.0*pow(sin(omega/2.0),2)) * (4.0 * a0 * a2 * (1.0 - (2.0*pow(sin(omega/2.0),2))) + a1 * (a0 + a2))));
+        
+        m = m * (-maxDB / 2.0);
         
         if(isinf(m) || isnan(m))    {
             m = 0.0;

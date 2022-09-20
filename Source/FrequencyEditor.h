@@ -51,6 +51,7 @@ public:
             
             float getGain();
             float getFrequncy();
+            bool getChannel();
             
             void calc();
             
@@ -71,8 +72,10 @@ public:
             juce::Slider            frequency { juce::Slider::LinearBar, juce::Slider::TextBoxAbove };
             juce::Slider            quality   { juce::Slider::LinearBar, juce::Slider::TextBoxAbove };
             juce::Slider            gain      { juce::Slider::LinearBar, juce::Slider::TextBoxAbove };
+            
             juce::TextButton        solo      { TRANS ("S") };
             juce::TextButton        activate  { TRANS ("A") };
+            juce::TextButton        channel   { TRANS ("L") };
             
             juce::Label             typeLabel { TRANS ("Filter Type"), TRANS ("TYPE") };
             juce::Label             freqLabel { TRANS ("Frequency"),  TRANS ("FREQ") };
@@ -97,9 +100,12 @@ private:
     
     juce::SharedResourcePointer<juce::TooltipWindow> tooltipWindow;
 
-    float magnitudes[MAG_LEN];
-    juce::Path frequencyResponse;
+    float magnitudes_l[MAG_LEN];
+    juce::Path frequencyResponse_l;
     
+    float magnitudes_r[MAG_LEN];
+    juce::Path frequencyResponse_r;
+
     float getFrequencyForPosition (float pos);
     float getPositionForFrequency (float freq);
     float getPositionForGain (float gain, float top, float bottom);

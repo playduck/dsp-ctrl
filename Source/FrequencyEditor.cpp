@@ -12,7 +12,7 @@
 #include "FrequencyEditor.h"
 
 const juce::Colour colors[] = {
-    juce::Colours::red,
+    juce::Colours::orangered,
     juce::Colours::orange,
     juce::Colours::yellow,
     juce::Colours::greenyellow,
@@ -25,7 +25,8 @@ FrequencyEditor::FrequencyEditor()
 {
     tooltipWindow->setMillisecondsBeforeTipAppears (1000);
     
-    frequencyResponse.preallocateSpace(MAG_LEN);
+    frequencyResponse_l.preallocateSpace(MAG_LEN);
+    frequencyResponse_r.preallocateSpace(MAG_LEN);
 
     float startF = 100;
     for (size_t i=0; i < numBands; ++i) {
@@ -57,7 +58,6 @@ void FrequencyEditor::paint (juce::Graphics& g)
     g.setFont (12.0f);
     g.setColour (juce::Colours::silver);
     g.drawRoundedRectangle (plotFrame.toFloat(), 5, 2); // background
-    
 
     // calculate major vertical positions
     // dw: decade width
@@ -69,6 +69,10 @@ void FrequencyEditor::paint (juce::Graphics& g)
     xL[2] = xL[1] + dw;                // 10 kHz
     
     float x20k = xL[2] + (std::log10(2) * dw); // 20 kHz
+    
+    g.setColour(juce::Colours::red);
+    g.setOpacity(0.05);
+    g.fillRoundedRectangle(plotFrame.getX(), plotFrame.getY(), plotFrame.getWidth(), plotFrame.getHeight() / 2, 5);
     
     // draw major gridlines
     float majorGridLineAlpha = 0.5f;
@@ -105,9 +109,11 @@ void FrequencyEditor::paint (juce::Graphics& g)
 
     g.reduceClipRegion (plotFrame);
     
-    frequencyResponse.clear();
+    frequencyResponse_l.clear();
+    frequencyResponse_r.clear();
     for(size_t i = 0; i < MAG_LEN; ++i) {
-        magnitudes[i] = 0.0;
+        magnitudes_l[i] = 0.0;
+        magnitudes_r[i] = 0.0;
     }
 
     // draw band frequencys
@@ -115,30 +121,39 @@ void FrequencyEditor::paint (juce::Graphics& g)
         auto* bandEditor = bandEditors.getUnchecked (int (i));
 
         g.setColour(bandEditor->colour);
-        bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::scale (3*dw, -maxDB/2));
+        bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::scale (3*dw, 1));
         bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::translation(2+padding, zeroDbY));
         g.strokePath (bandEditor->frequencyResponse, juce::PathStrokeType (2.0));
 
         for(size_t j = 0; j < MAG_LEN; ++j) {
-            magnitudes[j] = magnitudes[j] + bandEditor->magnitudes[j];
-            if(isnan(magnitudes[j]))    {
-                magnitudes[j] = 0.0;
+            if(bandEditor->getChannel())    {
+                magnitudes_r[j] += bandEditor->magnitudes[j];
+            }   else    {
+                magnitudes_l[j] += bandEditor->magnitudes[j];
             }
         }
     }
     
     for(size_t i = 0; i < MAG_LEN; ++i) {
-        frequencyResponse.lineTo((float)i / MAG_LEN, magnitudes[i]);
+        frequencyResponse_l.lineTo((float)i / MAG_LEN, magnitudes_l[i]);
+        frequencyResponse_r.lineTo((float)i / MAG_LEN, magnitudes_r[i]);
     }
     
-    frequencyResponse.applyTransform (juce::AffineTransform::scale (3*dw, -maxDB/2));
-    frequencyResponse.applyTransform (juce::AffineTransform::translation(2+padding, zeroDbY));
-
-    g.setColour(getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-    g.strokePath (frequencyResponse, juce::PathStrokeType (6.0));
-    g.setColour(juce::Colours::ghostwhite);
-    g.strokePath (frequencyResponse, juce::PathStrokeType (2.5));
-
+    frequencyResponse_l.applyTransform (juce::AffineTransform::scale (3*dw, 1));
+    frequencyResponse_l.applyTransform (juce::AffineTransform::translation(2+padding, zeroDbY));
+    frequencyResponse_r.applyTransform (juce::AffineTransform::scale (3*dw, 1));
+    frequencyResponse_r.applyTransform (juce::AffineTransform::translation(2+padding, zeroDbY));
+    
+    g.setColour(juce::Colours::blue);
+    g.strokePath (frequencyResponse_l, juce::PathStrokeType (6.0));
+    g.setColour(juce::Colours::white);
+    g.strokePath (frequencyResponse_l, juce::PathStrokeType (2.5));
+    
+    g.setColour(juce::Colours::red);
+    g.strokePath (frequencyResponse_r, juce::PathStrokeType (6.0));
+    g.setColour(juce::Colours::white);
+    g.strokePath (frequencyResponse_r, juce::PathStrokeType (2.5));
+    
     // draw editor handles
     for(size_t i = 0; i < numBands; ++i)    {
         auto* bandEditor = bandEditors.getUnchecked(int (i));
