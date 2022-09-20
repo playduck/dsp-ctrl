@@ -27,6 +27,22 @@ FrequencyEditor::FrequencyEditor()
     
     frequencyResponse_l.preallocateSpace(MAG_LEN);
     frequencyResponse_r.preallocateSpace(MAG_LEN);
+    
+    gain_l.setRange(-maxDB, maxDB, 0.1);
+    gain_r.setRange(-maxDB, maxDB, 0.1);
+    gain_l.setValue(0.0);
+    gain_r.setValue(0.0);
+    gain_l.setTextValueSuffix(" dB");
+    gain_r.setTextValueSuffix(" dB");
+    gain_l.setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::blue);
+    gain_r.setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::red);
+    gain_l.setDoubleClickReturnValue(true, 0.0);
+    gain_r.setDoubleClickReturnValue(true, 0.0);
+    addAndMakeVisible(gain_l);
+    addAndMakeVisible(gain_r);
+    
+    gain_label.setJustificationType(juce::Justification::centred);
+    addAndMakeVisible(gain_label);
 
     float startF = 100;
     for (size_t i=0; i < numBands; ++i) {
@@ -100,6 +116,8 @@ void FrequencyEditor::paint (juce::Graphics& g)
     g.setColour (juce::Colours::silver.withAlpha (0.3f));
     g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.25 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
     g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.375 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
+    g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.4375 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
+    g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.5625 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
     g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.625 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
     g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.75 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
 
@@ -117,12 +135,23 @@ void FrequencyEditor::paint (juce::Graphics& g)
     }
 
     // draw band frequencys
+    auto gain_l_offset = getPositionForGain((float) gain_l.getValue(),
+                                                      (float) plotFrame.getY(),
+                                                      (float) plotFrame.getBottom());
+    auto gain_r_offset = getPositionForGain((float) gain_r.getValue(),
+                                                      (float) plotFrame.getY(),
+                                                      (float) plotFrame.getBottom());
+    
     for (size_t i=0; i < numBands; ++i) {
         auto* bandEditor = bandEditors.getUnchecked (int (i));
 
         g.setColour(bandEditor->colour);
         bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::scale (3*dw, 1));
-        bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::translation(2+padding, zeroDbY));
+        if(bandEditor->getChannel())    {
+            bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::translation(2+padding, gain_r_offset));
+        }   else    {
+            bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::translation(2+padding, gain_l_offset));
+        }
         g.strokePath (bandEditor->frequencyResponse, juce::PathStrokeType (2.0));
 
         for(size_t j = 0; j < MAG_LEN; ++j) {
@@ -140,9 +169,9 @@ void FrequencyEditor::paint (juce::Graphics& g)
     }
     
     frequencyResponse_l.applyTransform (juce::AffineTransform::scale (3*dw, 1));
-    frequencyResponse_l.applyTransform (juce::AffineTransform::translation(2+padding, zeroDbY));
+    frequencyResponse_l.applyTransform (juce::AffineTransform::translation(2+padding, gain_l_offset));
     frequencyResponse_r.applyTransform (juce::AffineTransform::scale (3*dw, 1));
-    frequencyResponse_r.applyTransform (juce::AffineTransform::translation(2+padding, zeroDbY));
+    frequencyResponse_r.applyTransform (juce::AffineTransform::translation(2+padding, gain_r_offset));
     
     g.setColour(juce::Colours::blue);
     g.strokePath (frequencyResponse_l, juce::PathStrokeType (6.0));
@@ -210,8 +239,14 @@ void FrequencyEditor::resized()
 {
     plotFrame = getLocalBounds().reduced (3, 3);
     
-    auto width = juce::roundToInt (plotFrame.getWidth()) / (bandEditors.size());
     auto bandSpace = plotFrame.removeFromBottom (250.0);
+    
+    auto gainSpace = bandSpace.removeFromLeft(100);
+    gain_label.setBounds(gainSpace.removeFromTop(18));
+    gain_l.setBounds(gainSpace.removeFromTop(gainSpace.getHeight() / 2));
+    gain_r.setBounds(gainSpace);
+    
+    auto width = juce::roundToInt (bandSpace.getWidth() / bandEditors.size());
     width = width >= 200.0 ? 200.0 : width;
 
     for (auto* bandEditor : bandEditors)

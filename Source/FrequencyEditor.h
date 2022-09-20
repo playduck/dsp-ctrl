@@ -95,6 +95,10 @@ private:
     bool draggingGain = false;
     
     juce::Rectangle<int>          plotFrame;
+
+    juce::Label         gain_label { TRANS ("Channel Gain"), TRANS ("Pre-Gain") };
+    juce::Slider        gain_l { juce::Slider::RotaryHorizontalVerticalDrag, juce::Slider::TextBoxBelow };
+    juce::Slider        gain_r { juce::Slider::RotaryHorizontalVerticalDrag, juce::Slider::TextBoxBelow };
     
     juce::OwnedArray<BandEditor>  bandEditors;
     
