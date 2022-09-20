@@ -4,8 +4,14 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
-    getLookAndFeel().setColour (juce::Slider::thumbColourId, juce::Colours::red);
-    getLookAndFeel().setColour (juce::ResizableWindow::backgroundColourId, juce::Colour(0x22U, 0x20U, 0x2AU));
+    getLookAndFeel().setColour (juce::ResizableWindow::backgroundColourId, juce::Colour(0x0FU, 0x0FU, 0x14U));
+    getLookAndFeel().setColour (juce::Slider::trackColourId, juce::Colour(0x36U, 0x36U, 0x3FU));
+    getLookAndFeel().setColour (juce::PopupMenu::backgroundColourId, juce::Colour(0x36U, 0x36U, 0x3FU));
+    getLookAndFeel().setColour (juce::ComboBox::backgroundColourId, juce::Colours::transparentBlack);
+        
+    appNameText.setText("dsp-ctrl", juce::dontSendNotification);
+    appNameText.setFont (juce::Font (24.0f, juce::Font::bold));
+    addAndMakeVisible(appNameText);
     
     addAndMakeVisible(bp);
     
@@ -27,7 +33,12 @@ void MainComponent::paint (juce::Graphics& g)
 
 void MainComponent::resized()
 {
-    bp.setBounds (0, 50, getWidth(), getHeight() - 50);
+    auto bounds = getLocalBounds();
+    
+    appNameText.setBounds(bounds.removeFromTop(50));
+    bp.setBounds(bounds);
+    
+    //bp.setBounds (0, 50, getWidth(), getHeight() - 50);
     bp.resized();
     
     

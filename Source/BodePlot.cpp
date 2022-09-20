@@ -95,6 +95,8 @@ void BodePlot::paint (juce::Graphics& g)
     // draw vertical lines
     g.setColour (juce::Colours::silver.withAlpha (0.3f));
     g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.25 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
+    g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.375 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
+    g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.625 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
     g.drawHorizontalLine (juce::roundToInt (plotFrame.getY() + 0.75 * plotFrame.getHeight()), float (plotFrame.getX()), float (plotFrame.getRight()));
 
     g.setColour (juce::Colours::greenyellow.withAlpha (0.5f));

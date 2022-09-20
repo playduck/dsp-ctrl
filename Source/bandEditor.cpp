@@ -105,56 +105,30 @@ void BodePlot::BandEditor::resized ()
 
 void BodePlot::BandEditor::paint(juce::Graphics& g) {
     calc();
+    updateControls();
     event();
 }
 
 void BodePlot::BandEditor::updateControls ()
 {
-    frequency.setEnabled (true);
-    quality.setEnabled (true);
-    gain.setEnabled (true);
-//    switch (type) {
-//        case FrequalizerAudioProcessor::LowPass:
-//            frequency.setEnabled (true); quality.setEnabled (true); gain.setEnabled (false);
-//            break;
-//        case FrequalizerAudioProcessor::LowPass1st:
-//            frequency.setEnabled (true); quality.setEnabled (false); gain.setEnabled (false);
-//            break;
-//        case FrequalizerAudioProcessor::LowShelf:
-//            frequency.setEnabled (true); quality.setEnabled (false); gain.setEnabled (true);
-//            break;
-//        case FrequalizerAudioProcessor::BandPass:
-//            frequency.setEnabled (true); quality.setEnabled (true); gain.setEnabled (false);
-//            break;
-//        case FrequalizerAudioProcessor::AllPass:
-//            frequency.setEnabled (true); quality.setEnabled (false); gain.setEnabled (false);
-//            break;
-//        case FrequalizerAudioProcessor::AllPass1st:
-//            frequency.setEnabled (true); quality.setEnabled (false); gain.setEnabled (false);
-//            break;
-//        case FrequalizerAudioProcessor::Notch:
-//            frequency.setEnabled (true); quality.setEnabled (true); gain.setEnabled (false);
-//            break;
-//        case FrequalizerAudioProcessor::Peak:
-//            frequency.setEnabled (true); quality.setEnabled (true); gain.setEnabled (true);
-//            break;
-//        case FrequalizerAudioProcessor::HighShelf:
-//            frequency.setEnabled (true); quality.setEnabled (true); gain.setEnabled (true);
-//            break;
-//        case FrequalizerAudioProcessor::HighPass1st:
-//            frequency.setEnabled (true); quality.setEnabled (false); gain.setEnabled (false);
-//            break;
-//        case FrequalizerAudioProcessor::HighPass:
-//            frequency.setEnabled (true); quality.setEnabled (true); gain.setEnabled (false);
-//            break;
-//        case FrequalizerAudioProcessor::LastFilterID:
-//        case FrequalizerAudioProcessor::NoFilter:
-//        default:
-//            frequency.setEnabled (true);
-//            quality.setEnabled (true);
-//            gain.setEnabled (true);
-//            break;
-//    }
+    switch (type) {
+        case lowpass:   /* fall through */
+        case highpass:
+            frequency.setEnabled(true);
+            gain.setEnabled(false);
+            quality.setEnabled(true);
+            break;
+        case peq:
+            frequency.setEnabled(true);
+            gain.setEnabled(true);
+            quality.setEnabled(true);
+            break;
+        default:
+            frequency.setEnabled(true);
+            gain.setEnabled(true);
+            quality.setEnabled(true);
+            break;
+    }
 }
 
 void BodePlot::BandEditor::updateSoloState (bool isSolo)
