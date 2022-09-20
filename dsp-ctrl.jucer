@@ -39,6 +39,7 @@
       <FILE id="SEEHOT" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
     </GROUP>
+    <FILE id="ni84vf" name="README.md" compile="0" resource="1" file="README.md"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>

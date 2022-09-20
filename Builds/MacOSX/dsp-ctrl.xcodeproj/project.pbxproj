@@ -53,6 +53,7 @@
 		75E9CF8C83541E490E3E6E39 /* bandEditor.cpp */ /* bandEditor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = bandEditor.cpp; path = ../../Source/bandEditor.cpp; sourceTree = SOURCE_ROOT; };
 		7B85D3449D4A1FE041F5908F /* juce_serialport_Android.cpp */ /* juce_serialport_Android.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_serialport_Android.cpp; path = ../../Source/Components/juce_serialport/juce_serialport_Android.cpp; sourceTree = SOURCE_ROOT; };
 		7C679D860C30B4FC2AED45B2 /* RecentFilesMenuTemplate.nib */ /* RecentFilesMenuTemplate.nib */ = {isa = PBXFileReference; lastKnownFileType = file.nib; name = RecentFilesMenuTemplate.nib; path = RecentFilesMenuTemplate.nib; sourceTree = SOURCE_ROOT; };
+		81046F047969BD251108890D /* README.md */ /* README.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; name = README.md; path = ../../README.md; sourceTree = SOURCE_ROOT; };
 		91F7D819692357FB4088E88A /* Info-App.plist */ /* Info-App.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-App.plist"; path = "Info-App.plist"; sourceTree = SOURCE_ROOT; };
 		9642C3F631961B5404DA918F /* juce_data_structures */ /* juce_data_structures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_data_structures; path = /Users/robin/Documents/code/JUCE/modules/juce_data_structures; sourceTree = "<absolute>"; };
 		A5A7B0652516DBF3B002EE02 /* juce_graphics */ /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_graphics; path = /Users/robin/Documents/code/JUCE/modules/juce_graphics; sourceTree = "<absolute>"; };
@@ -90,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				AAF3B86E61ACE5620DC2FF6D,
+				81046F047969BD251108890D,
 			);
 			name = "dsp-ctrl";
 			sourceTree = "<group>";

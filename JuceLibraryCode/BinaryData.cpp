@@ -285,6 +285,26 @@ static const unsigned char temp_binary_data_1[] =
 
 const char* README_md = (const char*) temp_binary_data_1;
 
+//================== README.md ==================
+static const unsigned char temp_binary_data_2[] =
+"#  dsp-ctrl\n"
+"\n"
+"A GUI for controlling a hardware DSP device.\n"
+"\n"
+"## Building\n"
+"\n"
+"This project uses juce 7 with C++14.\n"
+"Compile using either MSVC, XCode or Makefile.\n"
+"Modifying the project requires projucer.\n"
+"\n"
+"## References\n"
+"\n"
+"- This project takes inspiration and partial code from the [Freequalizer Project](https://github.com/ffAudio/Frequalizer).\n"
+"- IIR formulas are taken from the [Audio EQ Cookbook](https://webaudio.github.io/Audio-EQ-Cookbook/Audio-EQ-Cookbook.txt).\n"
+"- A numerically stable mathematical solution for determining IIR magnitude stems from [robert bristow-johnson's answer on the DSP Stackexchange](https://dsp.stackexchange.com/a/16911/56072). \n";
+
+const char* README_md2 = (const char*) temp_binary_data_2;
+
 
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes);
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
@@ -299,6 +319,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
     {
         case 0xdf7b007b:  numBytes = 8562; return UsbSerialHelper_java;
         case 0x64791dc8:  numBytes = 343; return README_md;
+        case 0x2aaa9b6a:  numBytes = 650; return README_md2;
         default: break;
     }
 
@@ -309,12 +330,14 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 const char* namedResourceList[] =
 {
     "UsbSerialHelper_java",
-    "README_md"
+    "README_md",
+    "README_md2"
 };
 
 const char* originalFilenames[] =
 {
     "UsbSerialHelper.java",
+    "README.md",
     "README.md"
 };
 

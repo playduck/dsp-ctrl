@@ -3098,6 +3098,9 @@
     <None Include="..\..\Source\Components\juce_serialport\README.md">
       <Filter>dsp-ctrl\Source\Components\juce_serialport</Filter>
     </None>
+    <None Include="..\..\README.md">
+      <Filter>dsp-ctrl</Filter>
+    </None>
     <None Include="C:\JUCE\modules\juce_core\native\java\README.txt">
       <Filter>JUCE Modules\juce_core\native\java</Filter>
     </None>

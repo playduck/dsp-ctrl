@@ -1904,6 +1904,7 @@
   <ItemGroup>
     <None Include="..\..\Source\Components\juce_serialport\com\artiphon\juce_serial\UsbSerialHelper.java"/>
     <None Include="..\..\Source\Components\juce_serialport\README.md"/>
+    <None Include="..\..\README.md"/>
     <None Include="C:\JUCE\modules\juce_core\native\java\README.txt"/>
     <None Include="C:\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>
     <None Include="C:\JUCE\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt"/>
