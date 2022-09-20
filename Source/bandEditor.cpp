@@ -6,10 +6,10 @@
 //
 
 #include <JuceHeader.h>
-#include "BodePlot.h"
+#include "FrequencyEditor.h"
 
 //==============================================================================
-BodePlot::BandEditor::BandEditor (size_t i, float startF, juce::Colour c)
+FrequencyEditor::BandEditor::BandEditor (size_t i, float startF, juce::Colour c)
   : index (i)
 {
     colour = c;
@@ -73,7 +73,7 @@ BodePlot::BandEditor::BandEditor (size_t i, float startF, juce::Colour c)
     
 }
 
-void BodePlot::BandEditor::resized ()
+void FrequencyEditor::BandEditor::resized ()
 {
     auto bounds = getLocalBounds();
     
@@ -103,13 +103,13 @@ void BodePlot::BandEditor::resized ()
     
 }
 
-void BodePlot::BandEditor::paint(juce::Graphics& g) {
+void FrequencyEditor::BandEditor::paint(juce::Graphics& g) {
     calc();
     updateControls();
     event();
 }
 
-void BodePlot::BandEditor::updateControls ()
+void FrequencyEditor::BandEditor::updateControls ()
 {
     switch (type) {
         case lowpass:   /* fall through */
@@ -131,44 +131,44 @@ void BodePlot::BandEditor::updateControls ()
     }
 }
 
-void BodePlot::BandEditor::updateSoloState (bool isSolo)
+void FrequencyEditor::BandEditor::updateSoloState (bool isSolo)
 {
     solo.setToggleState (isSolo, juce::dontSendNotification);
 }
 
-void BodePlot::BandEditor::setFrequency (float freq)
+void FrequencyEditor::BandEditor::setFrequency (float freq)
 {
     frequency.setValue (freq, juce::sendNotification);
 }
 
-void BodePlot::BandEditor::setGain (float gainToUse)
+void FrequencyEditor::BandEditor::setGain (float gainToUse)
 {
     gain.setValue (gainToUse, juce::sendNotification);
 }
 
-void BodePlot::BandEditor::setType (int newType)
+void FrequencyEditor::BandEditor::setType (int newType)
 {
     filterType.setSelectedId (newType, juce::sendNotification);
 }
 
-void BodePlot::BandEditor::buttonClicked (juce::Button* b)
+void FrequencyEditor::BandEditor::buttonClicked (juce::Button* b)
 {
     if (b == &solo) {
 //        processor.setBandSolo (solo.getToggleState() ? int (index) : -1);
     }
 }
 
-float BodePlot::BandEditor::getFrequncy()
+float FrequencyEditor::BandEditor::getFrequncy()
 {
     return (float)frequency.getValueObject().getValue();
 }
 
-float BodePlot::BandEditor::getGain()
+float FrequencyEditor::BandEditor::getGain()
 {
     return (float)gain.getValueObject().getValue();
 }
 
-void BodePlot::BandEditor::calc()   {
+void FrequencyEditor::BandEditor::calc()   {
     type = (filter_type_t)filterType.getSelectedId();
     
     frequencyResponse.clear();

@@ -2,7 +2,7 @@
 
 #include <JuceHeader.h>
 
-#include "BodePlot.h"
+#include "FrequencyEditor.h"
 
 #include "Components/juce_serialport/juce_serialport.h"
 
@@ -24,7 +24,7 @@ public:
 
 private:
     //==============================================================================
-    BodePlot bp;
+    FrequencyEditor bp;
     
     juce::Label  appNameText;
     

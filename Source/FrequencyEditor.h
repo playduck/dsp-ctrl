@@ -21,11 +21,11 @@ const int clickRadius = 10;
 //==============================================================================
 /*
 */
-class BodePlot  : public juce::Component
+class FrequencyEditor  : public juce::Component
 {
 public:
-    BodePlot();
-    ~BodePlot() override;
+    FrequencyEditor();
+    ~FrequencyEditor() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
@@ -106,5 +106,5 @@ private:
     float getGainForPosition (float pos, float top, float bottom);
     
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BodePlot)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FrequencyEditor)
 };

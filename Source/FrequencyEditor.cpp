@@ -9,7 +9,7 @@
 */
 
 #include <JuceHeader.h>
-#include "BodePlot.h"
+#include "FrequencyEditor.h"
 
 const juce::Colour colors[] = {
     juce::Colours::red,
@@ -21,7 +21,7 @@ const juce::Colour colors[] = {
 };
 
 //==============================================================================
-BodePlot::BodePlot()
+FrequencyEditor::FrequencyEditor()
 {
     tooltipWindow->setMillisecondsBeforeTipAppears (1000);
     
@@ -43,11 +43,11 @@ BodePlot::BodePlot()
     }
 }
 
-BodePlot::~BodePlot()
+FrequencyEditor::~FrequencyEditor()
 {
 }
 
-void BodePlot::paint (juce::Graphics& g)
+void FrequencyEditor::paint (juce::Graphics& g)
 {
 //    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
 
@@ -191,7 +191,7 @@ void BodePlot::paint (juce::Graphics& g)
     
 }
 
-void BodePlot::resized()
+void FrequencyEditor::resized()
 {
     plotFrame = getLocalBounds().reduced (3, 3);
     
@@ -205,7 +205,7 @@ void BodePlot::resized()
     plotFrame.reduce (3, 3);
 }
 
-void BodePlot::mouseMove (const juce::MouseEvent& e)
+void FrequencyEditor::mouseMove (const juce::MouseEvent& e)
 {
     if (plotFrame.contains (e.x, e.y))
     {
@@ -244,7 +244,7 @@ void BodePlot::mouseMove (const juce::MouseEvent& e)
     setMouseCursor (juce::MouseCursor (juce::MouseCursor::NormalCursor));
 }
 
-void BodePlot::mouseDrag (const juce::MouseEvent& e)
+void FrequencyEditor::mouseDrag (const juce::MouseEvent& e)
 {
     if (juce::isPositiveAndBelow (draggingBand, bandEditors.size()))
     {
@@ -257,22 +257,22 @@ void BodePlot::mouseDrag (const juce::MouseEvent& e)
     }
 }
 
-float BodePlot::getFrequencyForPosition (float pos)
+float FrequencyEditor::getFrequencyForPosition (float pos)
 {
     return 20.0f * std::pow (10.0f, 3.0f * pos);
 }
 
-float BodePlot::getPositionForFrequency (float freq)
+float FrequencyEditor::getPositionForFrequency (float freq)
 {
     return std::log10 (freq / 20.0f) / 3.0f;
 }
 
-float BodePlot::getPositionForGain (float gain, float top, float bottom)
+float FrequencyEditor::getPositionForGain (float gain, float top, float bottom)
 {
     return juce::jmap(gain, -maxDB, maxDB, bottom, top);
 }
 
-float BodePlot::getGainForPosition (float pos, float top, float bottom)
+float FrequencyEditor::getGainForPosition (float pos, float top, float bottom)
 {
     return juce::jmap (pos, bottom, top, -maxDB, maxDB);
 }
