@@ -99,8 +99,13 @@ private:
     bool draggingGain = false;
     
     juce::Rectangle<int>          plotFrame;
+    
+    juce::ComboBox      source_l;
+    juce::ComboBox      source_r;
+    juce::Label         source_label_l { TRANS("Left Source"), TRANS ("SRC L") };
+    juce::Label         source_label_r { TRANS("Right Source"), TRANS ("SRC R") };
 
-    juce::Label         gain_label { TRANS ("Channel Gain"), TRANS ("Pre-Gain") };
+    juce::Label         gain_label { TRANS ("Channel Gain"), TRANS ("GAIN") };
     juce::Slider        gain_l { juce::Slider::RotaryHorizontalVerticalDrag, juce::Slider::TextBoxBelow };
     juce::Slider        gain_r { juce::Slider::RotaryHorizontalVerticalDrag, juce::Slider::TextBoxBelow };
     

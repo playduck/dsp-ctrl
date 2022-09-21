@@ -28,6 +28,23 @@ FrequencyEditor::FrequencyEditor()
     frequencyResponse_l.preallocateSpace(MAG_LEN);
     frequencyResponse_r.preallocateSpace(MAG_LEN);
     
+    source_l.addItem("LEFT", 1);
+    source_l.addItem("RIGHT", 2);
+    source_l.addItem("MONO", 3);
+    source_l.setSelectedId(1);
+    addAndMakeVisible(source_l);
+    
+    source_r.addItem("LEFT", 1);
+    source_r.addItem("RIGHT", 2);
+    source_r.addItem("MONO", 3);
+    source_r.setSelectedId(2);
+    addAndMakeVisible(source_r);
+    
+    source_label_l.attachToComponent(&source_l, false);
+    addAndMakeVisible(source_label_l);
+    source_label_r.attachToComponent(&source_r, false);
+    addAndMakeVisible(source_label_r);
+    
     gain_l.setRange(-maxDB, maxDB, 0.1);
     gain_r.setRange(-maxDB, maxDB, 0.1);
     gain_l.setValue(0.0);
@@ -251,7 +268,13 @@ void FrequencyEditor::resized()
     
     auto bandSpace = plotFrame.removeFromBottom (150.0);
     
-    auto gainSpace = bandSpace.removeFromLeft(100);
+    auto sourceSpace = bandSpace.removeFromLeft(90);
+    sourceSpace.reduce(5, 30);
+    source_l.setBounds(sourceSpace.removeFromTop(30));
+    sourceSpace.removeFromTop(30);
+    source_r.setBounds(sourceSpace.removeFromTop(30));
+    
+    auto gainSpace = bandSpace.removeFromLeft(90);
     gain_label.setBounds(gainSpace.removeFromTop(18));
     gain_l.setBounds(gainSpace.removeFromTop(gainSpace.getHeight() / 2));
     gain_r.setBounds(gainSpace);
