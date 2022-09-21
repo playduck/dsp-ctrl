@@ -72,6 +72,7 @@ public:
            #else
             setResizable (true, true);
             centreWithSize (getWidth(), getHeight());
+            setResizeLimits(800, 600, 100000, 100000);
            #endif
 
             setVisible (true);

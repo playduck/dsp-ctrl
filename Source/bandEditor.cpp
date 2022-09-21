@@ -79,35 +79,28 @@ FrequencyEditor::BandEditor::BandEditor (size_t i, float startF, juce::Colour c)
     
 }
 
-void FrequencyEditor::BandEditor::resized ()
+void FrequencyEditor::BandEditor::resized()
 {
     auto bounds = getLocalBounds();
     
     // frame
-    frame.setBounds (bounds);
-    bounds.reduce (10, 20);
+    frame.setBounds(bounds);
+    bounds.reduce(10, 10);
+    bounds.removeFromTop(10);
+    
+    auto buttons = bounds.removeFromTop(20).withHeight(20);
+    activate.setBounds( buttons.removeFromLeft (25).withWidth(20));
+    solo.setBounds(     buttons.removeFromLeft (25).withWidth(20));
+    channel.setBounds(  buttons.removeFromLeft (25).withWidth(20));
 
-    // type
+    auto controls = bounds.removeFromRight(bounds.getWidth() / 1.5);
+    controls.removeFromTop(5);
+    auto knobHeight = controls.getHeight() / 4;
     
-    auto buttons = bounds.removeFromTop (20).withHeight (20);
-    activate.setBounds (buttons.removeFromLeft (20));
-    solo.setBounds (buttons.removeFromLeft (20));
-    channel.setBounds (buttons.removeFromLeft (20));
-
-//    auto freqBounds = bounds.removeFromBottom (bounds.getHeight() * 1 / 2);
-    auto right = bounds.removeFromRight(bounds.getWidth() / 1.5);
-
-    auto knobHeight = bounds.getHeight() / 4;
-    
-    filterType.setBounds (right.removeFromTop (knobHeight));
-    frequency.setBounds(right.removeFromTop (knobHeight));
-    gain.setBounds(right.removeFromTop (knobHeight));
-    quality.setBounds(right.removeFromTop (knobHeight));
-    
-//    freqLabel.setBounds(left.removeFromTop (knobHeight));
-//    gainLabel.setBounds(left.removeFromTop (knobHeight));
-//    qualityLabel.setBounds(left.removeFromTop (knobHeight));
-    
+    filterType.setBounds (  controls.removeFromTop(knobHeight));
+    frequency.setBounds(    controls.removeFromTop(knobHeight));
+    gain.setBounds(         controls.removeFromTop(knobHeight));
+    quality.setBounds(      controls.removeFromTop(knobHeight));
 }
 
 void FrequencyEditor::BandEditor::paint(juce::Graphics& g) {

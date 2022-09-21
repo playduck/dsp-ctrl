@@ -77,8 +77,14 @@ void FrequencyEditor::updateFrequencyResponse() {
         for(size_t j = 0; j < MAG_LEN; ++j) {
             if(bandEditor->getChannel())    {
                 magnitudes_r[j] += bandEditor->magnitudes[j];
+                if(isnan(magnitudes_r[i]))  {
+                    magnitudes_r[i] = magnitudes_r[i-1];
+                }
             }   else    {
                 magnitudes_l[j] += bandEditor->magnitudes[j];
+                if(isnan(magnitudes_l[i]))  {
+                    magnitudes_l[i] = magnitudes_l[i-1];
+                }
             }
         }
     }
@@ -243,7 +249,7 @@ void FrequencyEditor::resized()
     plotFrame = getLocalBounds().reduced (3, 3);
     updateFrequencyResponse();
     
-    auto bandSpace = plotFrame.removeFromBottom (250.0);
+    auto bandSpace = plotFrame.removeFromBottom (150.0);
     
     auto gainSpace = bandSpace.removeFromLeft(100);
     gain_label.setBounds(gainSpace.removeFromTop(18));
