@@ -84,8 +84,8 @@ FrequencyEditor::~FrequencyEditor()
 
 void FrequencyEditor::updateFrequencyResponse() {
     for(size_t i = 0; i < MAG_LEN; ++i) {
-        magnitudes_l[i] = 0.0;
-        magnitudes_r[i] = 0.0;
+        magnitudes_l[i] = 0;
+        magnitudes_r[i] = 0;
     }
 
     for (size_t i=0; i < numBands; ++i) {
@@ -108,6 +108,9 @@ void FrequencyEditor::updateFrequencyResponse() {
     
     frequencyResponse_l.clear();
     frequencyResponse_r.clear();
+
+    frequencyResponse_l.startNewSubPath(0, magnitudes_l[0]);
+    frequencyResponse_r.startNewSubPath(0, magnitudes_r[0]);
     for(size_t i = 0; i < MAG_LEN; ++i) {
         frequencyResponse_l.lineTo((float)i / MAG_LEN, magnitudes_l[i]);
         frequencyResponse_r.lineTo((float)i / MAG_LEN, magnitudes_r[i]);
@@ -184,20 +187,20 @@ void FrequencyEditor::paint (juce::Graphics& g)
         auto* bandEditor = bandEditors.getUnchecked (int (i));
 
         g.setColour(bandEditor->colour);
-        bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::scale (3*dw, 1));
+        bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), 1));
         if(bandEditor->getChannel())    {
-            bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::translation(2+padding, gain_r_offset));
+            bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::translation(padding, gain_r_offset));
         }   else    {
-            bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::translation(2+padding, gain_l_offset));
+            bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::translation(padding, gain_l_offset));
         }
         g.strokePath (bandEditor->frequencyResponse, juce::PathStrokeType (2.0));
 
     }
     
-    frequencyResponse_l.applyTransform (juce::AffineTransform::scale (3*dw, 1));
-    frequencyResponse_l.applyTransform (juce::AffineTransform::translation(2+padding, gain_l_offset));
-    frequencyResponse_r.applyTransform (juce::AffineTransform::scale (3*dw, 1));
-    frequencyResponse_r.applyTransform (juce::AffineTransform::translation(2+padding, gain_r_offset));
+    frequencyResponse_l.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), 1));
+    frequencyResponse_l.applyTransform (juce::AffineTransform::translation(padding, gain_l_offset));
+    frequencyResponse_r.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), 1));
+    frequencyResponse_r.applyTransform (juce::AffineTransform::translation(padding, gain_r_offset));
     
     g.setColour(juce::Colours::blue);
     g.strokePath (frequencyResponse_l, juce::PathStrokeType (6.0));

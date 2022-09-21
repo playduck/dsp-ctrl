@@ -179,9 +179,6 @@ bool FrequencyEditor::BandEditor::getChannel()  {
 void FrequencyEditor::BandEditor::calc()   {
     type = (filter_type_t)filterType.getSelectedId();
     
-    frequencyResponse.clear();
-    frequencyResponse.startNewSubPath(0, 0);
-    
     double omega0 = M_PI * ((float)frequency.getValue() / 44100);
     double alpha = (sin(omega0))/(2.0 * (float)quality.getValue());
     double A = pow(10.0, (float)gain.getValue() / 40.0);
@@ -222,11 +219,9 @@ void FrequencyEditor::BandEditor::calc()   {
             break;
     }
     
-    double omega, pOmega;
-        
+    double omega;
     for(int i = 0; i < MAG_LEN; ++i) {
         
-        pOmega = ((i) / (float)MAG_LEN);
         omega = (20.0f * std::pow (10.0f, 3.0f * ((i+1) / (float)MAG_LEN))) / 20000.0;
     
         double m = \
@@ -240,8 +235,11 @@ void FrequencyEditor::BandEditor::calc()   {
         }
                 
         magnitudes[i] = m;
-        frequencyResponse.lineTo(pOmega, m);
     }
     
-    
+    frequencyResponse.clear();
+    frequencyResponse.startNewSubPath(0, magnitudes[0]);
+    for(int i = 0; i < MAG_LEN; ++i) {
+        frequencyResponse.lineTo(((i + 1) / (float)MAG_LEN), magnitudes[i]);
+    }
 }
