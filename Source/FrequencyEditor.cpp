@@ -183,11 +183,16 @@ void FrequencyEditor::paint (juce::Graphics& g)
                                                       (float) plotFrame.getY(),
                                                       (float) plotFrame.getBottom());
     
+    //auto offset = ((float)plotFrame.getBottom() - (float)plotFrame.getY()) / 2.0;
+    auto gainFactor = -((float)plotFrame.getBottom() - (float)plotFrame.getY()) / (2.0 * maxDB);
+    printf("%f\n", gainFactor);
+    printf("%f %f\n", gain_l_offset, gain_r_offset);
+    
     for (size_t i=0; i < numBands; ++i) {
         auto* bandEditor = bandEditors.getUnchecked (int (i));
 
         g.setColour(bandEditor->colour);
-        bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), 1));
+        bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), gainFactor));
         if(bandEditor->getChannel())    {
             bandEditor->frequencyResponse.applyTransform (juce::AffineTransform::translation(padding, gain_r_offset));
         }   else    {
@@ -197,10 +202,10 @@ void FrequencyEditor::paint (juce::Graphics& g)
 
     }
     
-    frequencyResponse_l.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), 1));
-    frequencyResponse_l.applyTransform (juce::AffineTransform::translation(padding, gain_l_offset));
-    frequencyResponse_r.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), 1));
-    frequencyResponse_r.applyTransform (juce::AffineTransform::translation(padding, gain_r_offset));
+    frequencyResponse_l.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), gainFactor));
+    frequencyResponse_l.applyTransform (juce::AffineTransform::translation(plotFrame.getX() + (padding / 2.0), gain_l_offset));
+    frequencyResponse_r.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), gainFactor));
+    frequencyResponse_r.applyTransform (juce::AffineTransform::translation(plotFrame.getX() + (padding / 2.0), gain_r_offset));
     
     g.setColour(juce::Colours::blue);
     g.strokePath (frequencyResponse_l, juce::PathStrokeType (6.0));

@@ -227,9 +227,7 @@ void FrequencyEditor::BandEditor::calc()   {
         double m = \
         10.0 * log10(pow(((b0 + b1 + b2)/2.0), 2) - ((2.0*pow(sin(omega/2.0),2)) * (4.0 * b0 * b2 * (1.0 - (2.0*pow(sin(omega/2.0),2))) + b1 * (b0 + b2)))) -\
         10.0 * log10(pow(((a0 + a1 + a2)/2.0), 2) - ((2.0*pow(sin(omega/2.0),2)) * (4.0 * a0 * a2 * (1.0 - (2.0*pow(sin(omega/2.0),2))) + a1 * (a0 + a2))));
-        
-        m = m * (-maxDB / 2.0);
-        
+                
         if(isinf(m) || isnan(m))    {
             m = 0.0;
         }
