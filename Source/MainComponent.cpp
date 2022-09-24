@@ -13,6 +13,12 @@ MainComponent::MainComponent()
     appNameText.setFont (juce::Font (24.0f, juce::Font::bold));
     addAndMakeVisible(appNameText);
     
+    tabbar.addTab("CONFIG", getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId), 0);
+    tabbar.addTab("EQ", getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId), 1);
+    tabbar.setCurrentTabIndex(0);
+    tabbar.addChangeListener(this);
+    addAndMakeVisible(tabbar);
+    
     addAndMakeVisible(bp);
     
     setSize (600, 400);
@@ -34,13 +40,25 @@ void MainComponent::paint (juce::Graphics& g)
 void MainComponent::resized()
 {
     auto bounds = getLocalBounds();
+    auto topbar = bounds.removeFromTop(50);
     
-    appNameText.setBounds(bounds.removeFromTop(50));
-    bp.setBounds(bounds);
+    appNameText.setBounds(topbar.removeFromLeft(100));
     
-    //bp.setBounds (0, 50, getWidth(), getHeight() - 50);
-    bp.resized();
+    tabbar.setBounds(topbar);
     
+    switch( tabbar.getCurrentTabIndex() )  {
+        case 0:
+            printf("CONFIG\n");
+            break;
+        case 1:
+            printf("EQ\n");
+            bp.setBounds(bounds);
+            bp.resized();
+            break;
+        default:
+            printf("%d\n", tabbar.getCurrentTabIndex());
+            break;
+    }
     
     // This is called when the MainComponent is resized.
     // If you add any child components, this is where you should
@@ -48,4 +66,8 @@ void MainComponent::resized()
     //freqProcessor.setSavedSize ({ getWidth(), getHeight() });
 
     //socialButtons.setBounds (plotFrame.removeFromBottom (35));
+}
+
+void MainComponent::changeListenerCallback( juce::ChangeBroadcaster* source)   {
+    resized();
 }
