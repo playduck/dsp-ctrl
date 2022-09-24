@@ -94,13 +94,13 @@ void FrequencyEditor::updateFrequencyResponse() {
         for(size_t j = 0; j < MAG_LEN; ++j) {
             if(bandEditor->getChannel())    {
                 magnitudes_r[j] += bandEditor->magnitudes[j];
-                if(isnan(magnitudes_r[i]))  {
-                    magnitudes_r[i] = magnitudes_r[i-1];
+                if(isnan(magnitudes_r[j]))  {
+                    magnitudes_r[j] = magnitudes_r[j-1];
                 }
             }   else    {
                 magnitudes_l[j] += bandEditor->magnitudes[j];
-                if(isnan(magnitudes_l[i]))  {
-                    magnitudes_l[i] = magnitudes_l[i-1];
+                if(isnan(magnitudes_l[j]))  {
+                    magnitudes_l[j] = magnitudes_l[j-1];
                 }
             }
         }
@@ -182,11 +182,7 @@ void FrequencyEditor::paint (juce::Graphics& g)
     auto gain_r_offset = getPositionForGain((float) gain_r.getValue(),
                                                       (float) plotFrame.getY(),
                                                       (float) plotFrame.getBottom());
-    
-    //auto offset = ((float)plotFrame.getBottom() - (float)plotFrame.getY()) / 2.0;
     auto gainFactor = -((float)plotFrame.getBottom() - (float)plotFrame.getY()) / (2.0 * maxDB);
-    printf("%f\n", gainFactor);
-    printf("%f %f\n", gain_l_offset, gain_r_offset);
     
     for (size_t i=0; i < numBands; ++i) {
         auto* bandEditor = bandEditors.getUnchecked (int (i));
@@ -222,15 +218,18 @@ void FrequencyEditor::paint (juce::Graphics& g)
         auto* bandEditor = bandEditors.getUnchecked(int (i));
         
         auto x = juce::roundToInt (plotFrame.getX() + plotFrame.getWidth() * getPositionForFrequency (float (bandEditor->getFrequncy())) + (padding / 2.0f));
-        auto y = juce::roundToInt (getPositionForGain (float (bandEditor->getGain()),
-                                                       float (plotFrame.getY()),
-                                                       float (plotFrame.getBottom()) ));
+        auto y = juce::roundToInt(getPositionForGain(bandEditor->getGain() + (bandEditor->getChannel() ? gain_r.getValue() : gain_l.getValue()), plotFrame.getY(), plotFrame.getBottom()));
 
         float radius = 10;
         
         g.setColour(bandEditor->colour);
+        g.setOpacity(0.4);
         g.drawVerticalLine (x, float (plotFrame.getY()), float (y - (radius - 1)));
         g.drawVerticalLine (x, float (y + (radius - 1)), float (plotFrame.getBottom()));
+        
+        g.setOpacity(0.4);
+        g.fillEllipse (float (x - ((radius + clickRadius) / 2)), float (y - ((radius + clickRadius) / 2)), radius + clickRadius, radius + clickRadius);
+        g.setOpacity(1.0);
         g.fillEllipse (float (x - (radius / 2)), float (y - (radius / 2)), radius, radius);
     }
     
@@ -308,8 +307,10 @@ void FrequencyEditor::mouseMove (const juce::MouseEvent& e)
 
             if (std::abs (pos - e.position.getX()) < clickRadius)
             {
-                if (std::abs (getPositionForGain (float (band->getGain()), float (plotFrame.getY()), float (plotFrame.getBottom()))
-                              - e.position.getY()) < clickRadius)
+                                                                  
+                auto gain = band->getGain() + (band->getChannel() ? gain_r.getValue() : gain_l.getValue());
+                if (std::abs(getPositionForGain(gain, plotFrame.getY(), plotFrame.getBottom())
+                            - e.position.getY()) < clickRadius)
                 {
                     draggingGain = true;
                     setMouseCursor (juce::MouseCursor (juce::MouseCursor::UpDownLeftRightResizeCursor));
@@ -342,7 +343,8 @@ void FrequencyEditor::mouseDrag (const juce::MouseEvent& e)
         auto pos = (e.position.getX() - plotFrame.getX()) / plotFrame.getWidth();
         bandEditors [draggingBand]->setFrequency (getFrequencyForPosition (pos));
         if (draggingGain)   {
-            float gain = getGainForPosition (e.position.getY(), float (plotFrame.getY()), float (plotFrame.getBottom()));
+            auto bandOffset = bandEditors[draggingBand]->getChannel() ? gain_r.getValue() : gain_l.getValue();
+            auto gain = getGainForPosition (e.position.getY(), plotFrame.getY(), plotFrame.getBottom()) - bandOffset;
             bandEditors [draggingBand]->setGain(gain);
         }
     }
