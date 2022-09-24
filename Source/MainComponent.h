@@ -3,6 +3,7 @@
 #include <JuceHeader.h>
 
 #include "FrequencyEditor.h"
+#include "ConfigPanel.h"
 
 #include "Components/juce_serialport/juce_serialport.h"
 
@@ -27,6 +28,7 @@ public:
 private:
     //==============================================================================
     FrequencyEditor bp;
+    ConfigPanel config;
     
     juce::Label  appNameText;
     juce::TabbedButtonBar tabbar { juce::TabbedButtonBar::TabsAtTop };

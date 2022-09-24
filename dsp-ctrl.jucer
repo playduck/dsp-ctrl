@@ -5,6 +5,8 @@
               splashScreenColour="Dark">
   <MAINGROUP id="Y0KQpr" name="dsp-ctrl">
     <GROUP id="{EFCD0813-FAEC-1F15-133D-C63E7BC413C4}" name="Source">
+      <FILE id="ZJtSR8" name="ConfigPanel.cpp" compile="1" resource="0" file="Source/ConfigPanel.cpp"/>
+      <FILE id="rEDXu8" name="ConfigPanel.h" compile="0" resource="0" file="Source/ConfigPanel.h"/>
       <FILE id="RXfWLM" name="FrequencyEditor.h" compile="0" resource="0"
             file="Source/FrequencyEditor.h"/>
       <FILE id="y1jZwy" name="FrequencyEditor.cpp" compile="1" resource="0"

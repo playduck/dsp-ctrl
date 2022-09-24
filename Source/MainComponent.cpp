@@ -15,11 +15,14 @@ MainComponent::MainComponent()
     
     tabbar.addTab("CONFIG", getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId), 0);
     tabbar.addTab("EQ", getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId), 1);
+
     tabbar.setCurrentTabIndex(0);
     tabbar.addChangeListener(this);
     addAndMakeVisible(tabbar);
     
+    addAndMakeVisible(config);
     addAndMakeVisible(bp);
+    
     
     setSize (600, 400);
 }
@@ -46,17 +49,27 @@ void MainComponent::resized()
     
     tabbar.setBounds(topbar);
     
+    config.setBounds(bounds);
+    config.resized();
+    
+    bp.setBounds(bounds);
+    bp.resized();
+    
     switch( tabbar.getCurrentTabIndex() )  {
         case 0:
             printf("CONFIG\n");
+            config.setVisible(true);
+            bp.setVisible(false);
             break;
         case 1:
             printf("EQ\n");
-            bp.setBounds(bounds);
-            bp.resized();
+            config.setVisible(false);
+            bp.setVisible(true);
             break;
         default:
             printf("%d\n", tabbar.getCurrentTabIndex());
+            config.setVisible(false);
+            bp.setVisible(false);
             break;
     }
     

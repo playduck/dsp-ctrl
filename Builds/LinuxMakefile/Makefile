@@ -72,6 +72,7 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS_APP := \
+  $(JUCE_OBJDIR)/ConfigPanel_d3dc2943.o \
   $(JUCE_OBJDIR)/FrequencyEditor_7fcae5ca.o \
   $(JUCE_OBJDIR)/juce_serialport_Android_eaeeea9f.o \
   $(JUCE_OBJDIR)/juce_serialport_iOS_681d66dd.o \
@@ -100,6 +101,11 @@ $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) : $(OBJECTS_APP) $(RESOURCES)
 	-$(V_AT)mkdir -p $(JUCE_LIBDIR)
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
 	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) $(OBJECTS_APP) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_APP) $(RESOURCES) $(TARGET_ARCH)
+
+$(JUCE_OBJDIR)/ConfigPanel_d3dc2943.o: ../../Source/ConfigPanel.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling ConfigPanel.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/FrequencyEditor_7fcae5ca.o: ../../Source/FrequencyEditor.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)

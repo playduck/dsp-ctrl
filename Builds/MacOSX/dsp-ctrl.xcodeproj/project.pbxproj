@@ -14,6 +14,7 @@
 		37BA9C5B3BE970B30F9C77D1 /* MainComponent.cpp */ = {isa = PBXBuildFile; fileRef = F9451A9C5E3F7CD4CF0380BA; };
 		3F6CC18F360B057A9B661889 /* Foundation.framework */ = {isa = PBXBuildFile; fileRef = 6FD23176BCA6775D8EF0638B; };
 		48C3CA93BEBCB8A4703C786B /* include_juce_graphics.mm */ = {isa = PBXBuildFile; fileRef = E59CE7D6077FD1CB364E6F6C; };
+		4992F7DDF63071B00151DA1A /* ConfigPanel.cpp */ = {isa = PBXBuildFile; fileRef = C36EAE4DE54D2B2170E590AE; };
 		4C4E310BB47D33ED0ABC5BBB /* Main.cpp */ = {isa = PBXBuildFile; fileRef = C063EC979C044D700B56B8D3; };
 		53E7C38AD9AC91FB89BB4DAF /* IOKit.framework */ = {isa = PBXBuildFile; fileRef = 1E3A2423284A8EE8E13FF8A1; };
 		798EC756B7254F657EC7DE5A /* bandEditor.cpp */ = {isa = PBXBuildFile; fileRef = 75E9CF8C83541E490E3E6E39; };
@@ -55,12 +56,14 @@
 		7B85D3449D4A1FE041F5908F /* juce_serialport_Android.cpp */ /* juce_serialport_Android.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_serialport_Android.cpp; path = ../../Source/Components/juce_serialport/juce_serialport_Android.cpp; sourceTree = SOURCE_ROOT; };
 		7C679D860C30B4FC2AED45B2 /* RecentFilesMenuTemplate.nib */ /* RecentFilesMenuTemplate.nib */ = {isa = PBXFileReference; lastKnownFileType = file.nib; name = RecentFilesMenuTemplate.nib; path = RecentFilesMenuTemplate.nib; sourceTree = SOURCE_ROOT; };
 		81046F047969BD251108890D /* README.md */ /* README.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; name = README.md; path = ../../README.md; sourceTree = SOURCE_ROOT; };
+		84BE01A3BFF80CCDF5B63BC4 /* ConfigPanel.h */ /* ConfigPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ConfigPanel.h; path = ../../Source/ConfigPanel.h; sourceTree = SOURCE_ROOT; };
 		91F7D819692357FB4088E88A /* Info-App.plist */ /* Info-App.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-App.plist"; path = "Info-App.plist"; sourceTree = SOURCE_ROOT; };
 		9642C3F631961B5404DA918F /* juce_data_structures */ /* juce_data_structures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_data_structures; path = /Users/robin/Documents/code/JUCE/modules/juce_data_structures; sourceTree = "<absolute>"; };
 		A5A7B0652516DBF3B002EE02 /* juce_graphics */ /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_graphics; path = /Users/robin/Documents/code/JUCE/modules/juce_graphics; sourceTree = "<absolute>"; };
 		B5603C3B0CBC051B616A1903 /* juce_events */ /* juce_events */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_events; path = /Users/robin/Documents/code/JUCE/modules/juce_events; sourceTree = "<absolute>"; };
 		C063EC979C044D700B56B8D3 /* Main.cpp */ /* Main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = ../../Source/Main.cpp; sourceTree = SOURCE_ROOT; };
 		C335399A3C6DBF0408956F88 /* App */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dsp-ctrl.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C36EAE4DE54D2B2170E590AE /* ConfigPanel.cpp */ /* ConfigPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigPanel.cpp; path = ../../Source/ConfigPanel.cpp; sourceTree = SOURCE_ROOT; };
 		DDB00DA938E7FDED39262BBB /* juce_serialport.h */ /* juce_serialport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_serialport.h; path = ../../Source/Components/juce_serialport/juce_serialport.h; sourceTree = SOURCE_ROOT; };
 		E305ABB25A43C685CC41B08A /* Cocoa.framework */ /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E59CE7D6077FD1CB364E6F6C /* include_juce_graphics.mm */ /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
@@ -172,6 +175,8 @@
 		AAF3B86E61ACE5620DC2FF6D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C36EAE4DE54D2B2170E590AE,
+				84BE01A3BFF80CCDF5B63BC4,
 				0552484E8C627BB9F3CE3650,
 				28A6D8273D83549ABB0C9DCC,
 				273745B5DE0649ABE66DCB9A,
@@ -312,6 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4992F7DDF63071B00151DA1A,
 				31ED7F7E05C93804FCAB7403,
 				B3AC54257A2429250E99559F,
 				2A0FD6EE9CAB3AA3C52DEE56,

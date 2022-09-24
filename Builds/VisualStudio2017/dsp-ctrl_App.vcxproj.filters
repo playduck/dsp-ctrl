@@ -259,6 +259,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\ConfigPanel.cpp">
+      <Filter>dsp-ctrl\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\FrequencyEditor.cpp">
       <Filter>dsp-ctrl\Source</Filter>
     </ClCompile>
@@ -1641,6 +1644,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\ConfigPanel.h">
+      <Filter>dsp-ctrl\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\FrequencyEditor.h">
       <Filter>dsp-ctrl\Source</Filter>
     </ClInclude>

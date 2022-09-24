@@ -141,6 +141,7 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\ConfigPanel.cpp"/>
     <ClCompile Include="..\..\Source\FrequencyEditor.cpp"/>
     <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_Android.cpp"/>
     <ClCompile Include="..\..\Source\Components\juce_serialport\juce_serialport_iOS.cpp"/>
@@ -1417,6 +1418,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\ConfigPanel.h"/>
     <ClInclude Include="..\..\Source\FrequencyEditor.h"/>
     <ClInclude Include="..\..\Source\Components\juce_serialport\juce_serialport.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
