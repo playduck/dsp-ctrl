@@ -15,9 +15,14 @@ MainComponent::MainComponent()
     
     tabbar.addTab("CONFIG", getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId), 0);
     tabbar.addTab("EQ", getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId), 1);
-
     tabbar.setCurrentTabIndex(0);
     tabbar.addChangeListener(this);
+    
+    for(int i = 0; i < tabbar.getNumTabs(); ++i)    {
+        juce::TabBarButton* tab = tabbar.getTabButton(i);
+        
+    }
+    
     addAndMakeVisible(tabbar);
     
     addAndMakeVisible(config);
@@ -46,7 +51,6 @@ void MainComponent::resized()
     auto topbar = bounds.removeFromTop(50);
     
     appNameText.setBounds(topbar.removeFromLeft(100));
-    
     tabbar.setBounds(topbar);
     
     config.setBounds(bounds);

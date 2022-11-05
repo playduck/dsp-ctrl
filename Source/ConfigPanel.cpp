@@ -14,9 +14,14 @@
 //==============================================================================
 ConfigPanel::ConfigPanel()
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
+    addAndMakeVisible(connectionBox);
+    addAndMakeVisible(updateButton);
 
+    connectionLabel.attachToComponent(&connectionBox, false);
+    addAndMakeVisible(connectionLabel);
+    
+    updateLabel.attachToComponent(&updateButton, false);
+    addAndMakeVisible(updateLabel);
 }
 
 ConfigPanel::~ConfigPanel()
@@ -45,7 +50,18 @@ void ConfigPanel::paint (juce::Graphics& g)
 
 void ConfigPanel::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
+    auto bounds = getLocalBounds();
+    bounds.reduce(10,50);
+    auto columnWidth = bounds.getWidth() / 4;
+    auto column = bounds.removeFromLeft(columnWidth);
+    
+    connectionBox.setBounds(column.removeFromTop(30));
+    column.removeFromTop(30);
+    updateButton.setBounds(column.removeFromTop(30));
+    
+}
 
+void ConfigPanel::buttonClicked (juce::Button* b)
+{
+    
 }

@@ -199,9 +199,9 @@ void FrequencyEditor::paint (juce::Graphics& g)
     }
     
     frequencyResponse_l.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), gainFactor));
-    frequencyResponse_l.applyTransform (juce::AffineTransform::translation(plotFrame.getX() + (padding / 2.0), gain_l_offset));
+    frequencyResponse_l.applyTransform (juce::AffineTransform::translation(plotFrame.getX() + (padding / 2.0) + 1, gain_l_offset));
     frequencyResponse_r.applyTransform (juce::AffineTransform::scale (plotFrame.getWidth(), gainFactor));
-    frequencyResponse_r.applyTransform (juce::AffineTransform::translation(plotFrame.getX() + (padding / 2.0), gain_r_offset));
+    frequencyResponse_r.applyTransform (juce::AffineTransform::translation(plotFrame.getX() + (padding / 2.0) + 1, gain_r_offset));
     
     g.setColour(juce::Colours::blue);
     g.strokePath (frequencyResponse_l, juce::PathStrokeType (6.0));
